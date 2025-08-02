@@ -20,8 +20,7 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v3
 
-      # - name: Mostrar ambiente selecionado
-      #   run: echo "Ambiente selecionado: AquiAdriano"
+      
       - name: Exibir os inputs
         run: |
           echo "Ambiente selecionado: ${{ github.event.inputs.ambiente }}"
