@@ -24,11 +24,12 @@ jobs:
         #run: echo "Ambiente selecionado: ${{ inputs.ambiente }}"
 
       - name: Mostrar variável do environment
+        run: echo "APP_ENV: Teste"
         #run: echo "APP_ENV: $APP_ENV"
         env:
           APP_ENV: ${{ vars.APP_ENV }}
 
       - name: Usar segredo do environment
-        #run: echo "A chave da API foi lida com sucesso!"
+        run: echo "A chave da API foi lida com sucesso!"
         env:
           API_KEY: ${{ secrets.API_KEY }}
