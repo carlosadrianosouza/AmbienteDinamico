@@ -1,0 +1,42 @@
+name: Deploy Dinâmico por Branch
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  deploy-stg:
+    name: Deploy STG
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'develop'
+    environment: STG
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Exibir variáveis do ambiente STG
+        run: |
+          echo "Ambiente: STG"
+          echo "APP_ENV: $APP_ENV"
+        env:
+          APP_ENV: ${{ vars.APP_ENV }}
+
+  deploy-prd:
+    name: Deploy PRD
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'main'
+    environment: PRD
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Exibir variáveis do ambiente PRD
+        run: |
+          echo "Ambiente: PRD"
+          echo "APP_ENV: $APP_ENV"
+        env:
+          APP_ENV: ${{ vars.APP_ENV }}

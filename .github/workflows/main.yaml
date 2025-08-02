@@ -1,42 +1,35 @@
-name: Deploy Dinâmico por Branch
+name: Deploy Manual por Ambiente
 
 on:
-  push:
-    branches:
-      - main
-      - develop
+  workflow_dispatch:
+    inputs:
+      ambiente:
+        description: 'Selecione o ambiente'
+        required: true
+        default: 'STG'
+        type: choice
+        options:
+          - STG
+          - PRD
 
 jobs:
-  deploy-stg:
-    name: Deploy STG
+  deploy:
     runs-on: ubuntu-latest
-    if: github.ref_name == 'develop'
-    environment: STG
+    environment: ${{ inputs.ambiente }}
 
     steps:
       - name: Checkout do código
         uses: actions/checkout@v3
 
-      - name: Exibir variáveis do ambiente STG
-        run: |
-          echo "Ambiente: STG"
-          echo "APP_ENV: $APP_ENV"
+      - name: Mostrar ambiente selecionado
+        run: echo "🚀 Ambiente selecionado: ${{ inputs.ambiente }}"
+
+      - name: Mostrar variável do environment
+        run: echo "🔧 APP_ENV: $APP_ENV"
         env:
           APP_ENV: ${{ vars.APP_ENV }}
 
-  deploy-prd:
-    name: Deploy PRD
-    runs-on: ubuntu-latest
-    if: github.ref_name == 'main'
-    environment: PRD
-
-    steps:
-      - name: Checkout do código
-        uses: actions/checkout@v3
-
-      - name: Exibir variáveis do ambiente PRD
-        run: |
-          echo "Ambiente: PRD"
-          echo "APP_ENV: $APP_ENV"
+      - name: Usar segredo do environment
+        run: echo "🔐 A chave da API foi lida com sucesso!"
         env:
-          APP_ENV: ${{ vars.APP_ENV }}
+          API_KEY: ${{ secrets.API_KEY }}
