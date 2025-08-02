@@ -26,7 +26,8 @@ jobs:
           echo "Ambiente selecionado: ${{ github.event.inputs.ambiente }}"
 
       - name: Mostrar ambiente selecionado
-        run: echo "Ambiente selecionado: ${{ inputs.ambiente }}"
+        run: | 
+          cho "Ambiente selecionado: ${{ inputs.ambiente }}"
   
           
 
