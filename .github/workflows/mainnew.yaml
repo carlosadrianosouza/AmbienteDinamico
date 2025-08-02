@@ -21,9 +21,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Mostrar ambiente selecionado
-        #run: echo "Ambiente selecionado: ${{ inputs.ambiente }}"
-
-   
+        run: echo "Ambiente selecionado: ${{ inputs.ambiente }}"   
 
       - name: Usar segredo do environment
         run: echo "A chave da API foi lida com sucesso!"
