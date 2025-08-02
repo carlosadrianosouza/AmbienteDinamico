@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       ambiente:
-        description: 'Selecione o ambiente por favor'
+        description: 'Selecione o ambiente por favor aqui:'
         required: true
         default: 'STG'
         type: choice
