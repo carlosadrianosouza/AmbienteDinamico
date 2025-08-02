@@ -1,41 +1,33 @@
-ame: Execução Manual
+name: Deploy Manual por Ambiente
 
 on:
   workflow_dispatch:
     inputs:
       ambiente:
-        description: 'Qual ambiente você quer rodar?'
+        description: 'Selecione o ambiente'
         required: true
-        default: 'stg'
+        default: 'STG'
         type: choice
         options:
-          - stg
-          - staging
-          - production
-      mensagem_customizada:
-        description: 'Uma mensagem extra para o log'
-        required: false
-        default: 'Nenhuma mensagem'
-        type: string
+          - STG
+          - PRD
 
 jobs:
-  deploy:
+  run_pipeline:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.ambiente }}
 
     steps:
       - name: Checkout do código
         uses: actions/checkout@v3
 
-      - name: Mostrar ambiente selecionado
-        run: echo "🚀 Ambiente selecionado: ${{ inputs.ambiente }}"
-
-      - name: Mostrar variável do environment
-        run: echo "🔧 APP_ENV: $APP_ENV"
-        env:
-          APP_ENV: ${{ vars.APP_ENV }}
-
-      - name: Usar segredo do environment
-        run: echo "🔐 A chave da API foi lida com sucesso!"
-        env:
-          API_KEY: ${{ secrets.API_KEY }}
+      - name: Exibir os inputs
+        run: |
+          echo "Ambiente selecionado: ${{ github.event.inputs.ambiente }}"
+          echo "Mensagem customizada: ${{ github.event.inputs.mensagem_customizada }}"
+          
+      - name: Executar script para o ambiente
+        run: |
+          echo "Executando script para o ambiente ${{ github.event.inputs.ambiente }}"
+          # Aqui você colocaria o comando real para rodar seu script, ex:
+          # npm run deploy-${{ github.event.inputs.ambiente }}
+          # ou um comando de shell que use o ambiente
